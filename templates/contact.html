@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Contact ETHNIC GAMES — Games That Unite the World." />
+  <title>Contact — ETHNIC GAMES</title>
+
+  <style>
+    :root {
+      --bg-dark: #0a1b3d;
+      --bg-mid: #122a63;
+      --accent: #f8d24a;
+      --text-light: #ffffff;
+      --text-dim: rgba(255,255,255,0.7);
+      --font-main: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      --radius-md: 0.6rem;
+      --max-width: 900px;
+    }
+
+    * {
+      box-sizing: border-box;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      margin: 0;
+      font-family: var(--font-main);
+      color: var(--text-light);
+      background: linear-gradient(160deg, var(--bg-dark) 0%, #0d1f4d 60%, #102871 100%);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      background: rgba(10,20,40,0.5);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      z-index: 10;
+    }
+
+    .nav-inner {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 1rem 1.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: .75rem;
+      text-transform: uppercase;
+      letter-spacing: .05em;
+      font-weight: 600;
+    }
+
+    .brand-logo {
+      width: 42px;
+      height: 42px;
+      border-radius: 999px;
+      background: radial-gradient(circle at 30% 30%, #fff 0%, #9bb5ff 40%, #1c2b6a 70%, #000 100%);
+      border: 1px solid rgba(255,255,255,0.4);
+      display: grid;
+      place-items: center;
+      color: #0a1b3d;
+      font-weight: 700;
+      font-size: .6rem;
+    }
+
+    nav a {
+      color: var(--text-dim);
+      text-decoration: none;
+      font-size: .9rem;
+      margin-left: 1rem;
+      transition: color .2s;
+    }
+
+    nav a:hover {
+      color: var(--text-light);
+    }
+
+    main {
+      flex: 1;
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 4rem 1.5rem;
+      text-align: center;
+      animation: fadeIn 1.2s ease forwards;
+    }
+
+    h1 {
+      font-size: clamp(1.8rem, 2vw + 1rem, 2.4rem);
+      font-weight: 600;
+      text-shadow: 0 20px 60px rgba(0,0,0,0.8);
+      margin-bottom: 1rem;
+    }
+
+    p.intro {
+      color: var(--text-dim);
+      max-width: 600px;
+      margin: 0 auto 3rem;
+      font-size: 1.05rem;
+      line-height: 1.6;
+    }
+
+    form {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: var(--radius-md);
+      padding: 2rem;
+      text-align: left;
+      box-shadow: 0 40px 120px rgba(0,0,0,0.8);
+      max-width: 600px;
+      margin: 0 auto 3rem;
+      backdrop-filter: blur(8px);
+    }
+
+    label {
+      display: block;
+      margin-bottom: .5rem;
+      font-size: .9rem;
+      color: var(--accent);
+      letter-spacing: .05em;
+    }
+
+    input, textarea {
+      width: 100%;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: var(--radius-md);
+      color: var(--text-light);
+      padding: .8rem;
+      font-size: .9rem;
+      margin-bottom: 1.5rem;
+      outline: none;
+      transition: border .2s;
+    }
+
+    input:focus, textarea:focus {
+      border-color: var(--accent);
+    }
+
+    textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+
+    .btn-main {
+      background: radial-gradient(circle at 20% 20%, #fff 0%, #ffe88a 40%, #b8952c 70%);
+      color: #0a1b3d;
+      font-weight: 600;
+      border-radius: var(--radius-md);
+      padding: .8rem 1.5rem;
+      border: none;
+      cursor: pointer;
+      transition: all .2s;
+    }
+
+    .btn-main:hover {
+      transform: scale(1.05);
+    }
+
+    .contact-info {
+      color: var(--text-dim);
+      line-height: 1.8;
+      font-size: .95rem;
+    }
+
+    .contact-info strong {
+      color: var(--accent);
+    }
+
+    .back-link {
+      display: inline-block;
+      margin-top: 2.5rem;
+      text-decoration: none;
+      color: var(--text-light);
+      border: 1px solid rgba(255,255,255,0.2);
+      padding: .7rem 1rem;
+      border-radius: var(--radius-md);
+      transition: all .2s;
+    }
+
+    .back-link:hover {
+      background: rgba(255,255,255,0.1);
+    }
+
+    footer {
+      text-align: center;
+      font-size: .8rem;
+      color: rgba(255,255,255,0.5);
+      padding: 2rem 1rem;
+      border-top: 1px solid rgba(255,255,255,0.05);
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="nav-inner">
+      <div class="brand">
+        <div class="brand-logo">EG</div>
+        <div>ETHNIC GAMES</div>
+      </div>
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="contact.html" style="color:var(--accent);">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <h1>Contact ETHNIC GAMES</h1>
+    <p class="intro">
+      Reach out to our international office or send us a message using the form below.  
+      We welcome collaborations, partnerships, and inquiries from around the world.
+    </p>
+
+    <form>
+      <label for="name">Full Name</label>
+      <input type="text" id="name" name="name" placeholder="Your name" required>
+
+      <label for="email">Email Address</label>
+      <input type="email" id="email" name="email" placeholder="you@example.com" required>
+
+      <label for="message">Your Message</label>
+      <textarea id="message" name="message" placeholder="Write your message..." required></textarea>
+
+      <button type="submit" class="btn-main">Send Message</button>
+    </form>
+
+    <div class="contact-info">
+      <p><strong>ETHNIC GAMES International Office</strong><br>
+      Republic of Poland, Wrocław<br>
+      Email: <a href="mailto:contact@ethnicgames.eu" style="color:var(--accent);text-decoration:none;">contact@ethnicgames.eu</a></p>
+    </div>
+
+    <a href="index.html" class="back-link">← Back to Home</a>
+  </main>
+
+  <footer>
+    © 2025 ETHNIC GAMES — Games That Unite the World
+  </footer>
+</body>
+</html>

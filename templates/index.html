@@ -1,0 +1,388 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="ETHNIC GAMES — Games That Unite the World. A new international sporting movement built on unity, culture and respect." />
+  <title>ETHNIC GAMES — Games That Unite the World</title>
+
+  <style>
+    :root {
+      --bg-dark: #0a1b3d;
+      --bg-light: #1f3e9d;
+      --text-light: #ffffff;
+      --text-dim: rgba(255,255,255,0.7);
+      --accent: #f8d24a;
+      --radius-lg: 1rem;
+      --radius-md: .5rem;
+      --max-width: 1280px;
+      --font-main: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      margin: 0;
+      font-family: var(--font-main);
+      color: var(--text-light);
+      background: linear-gradient(160deg, var(--bg-dark) 0%, #0d1f4d 60%, #102871 100%);
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      background: rgba(10,20,40,0.5);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      z-index: 1000;
+    }
+
+    .nav-inner {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 1rem 1.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: .75rem;
+      text-transform: uppercase;
+      letter-spacing: .05em;
+    }
+
+    .brand-logo {
+      width: 42px;
+      height: 42px;
+      border-radius: 999px;
+      background: radial-gradient(circle at 30% 30%, #fff 0%, #9bb5ff 40%, #1c2b6a 70%, #000 100%);
+      border: 1px solid rgba(255,255,255,0.4);
+      display: grid;
+      place-items: center;
+      color: #0a1b3d;
+      font-weight: 700;
+    }
+
+    nav a {
+      color: var(--text-dim);
+      text-decoration: none;
+      font-size: .85rem;
+      margin-left: 1rem;
+      transition: color .2s;
+    }
+
+    nav a:hover {
+      color: var(--text-light);
+    }
+
+    section {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 4rem 1.25rem;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2rem;
+      padding: 6rem 1.25rem 4rem;
+    }
+
+    @media(min-width: 900px) {
+      .hero { grid-template-columns: 1fr 1fr; }
+    }
+
+    .hero-title {
+      font-size: clamp(1.8rem, 1vw + 1.5rem, 2.3rem);
+      font-weight: 600;
+      text-shadow: 0 10px 40px rgba(0,0,0,.8);
+    }
+
+    .hero-sub {
+      color: var(--text-dim);
+      font-size: 1rem;
+      line-height: 1.6;
+      max-width: 40ch;
+    }
+
+    .hero-stats {
+      margin-top: 1.5rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem 2rem;
+    }
+
+    .hero-stats span.num {
+      color: var(--accent);
+      font-weight: 600;
+      font-size: 1.2rem;
+    }
+
+    .btn-main {
+      background: radial-gradient(circle at 20% 20%, #fff 0%, #ffe88a 40%, #b8952c 70%);
+      color: #0a1b3d;
+      font-weight: 600;
+      border-radius: var(--radius-md);
+      padding: .8rem 1rem;
+      text-decoration: none;
+      transition: all .15s;
+    }
+
+    .btn-main:hover { transform: scale(1.05); }
+
+    .hero-right-card {
+      position: relative;
+      border-radius: 1rem;
+      overflow: hidden;
+      min-height: 300px;
+      box-shadow: 0 30px 80px rgba(0,0,0,.6);
+    }
+
+    .hero-visual-bg {
+      position: absolute;
+      inset: 0;
+      background: url("{% static 'img/logo.jpeg' %}") center/cover no-repeat;
+      opacity: .7;
+      filter: brightness(.8);
+    }
+
+    .hero-visual-content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      padding: 2rem;
+    }
+
+    .hero-logo span {
+      display: block;
+      text-transform: uppercase;
+      letter-spacing: .1em;
+    }
+
+    .section-label {
+      color: var(--accent);
+      font-size: .8rem;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+
+    .section-headline {
+      font-size: 1.6rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+    }
+
+    .section-text {
+      color: var(--text-dim);
+      max-width: 60ch;
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+
+    @media(min-width:900px){ .about-grid{grid-template-columns:1fr 1fr;} }
+
+    .about-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+      box-shadow: 0 30px 80px rgba(0,0,0,.6);
+      position: relative;
+      overflow: hidden;
+      min-height: 300px;
+    }
+
+    .about-card h3 { margin-bottom: .5rem; }
+    .about-card p { color: var(--text-dim); font-size: .9rem; }
+
+    .about-card-visual {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 45%;
+      background-size: cover;
+      background-position: center;
+      mask-image: linear-gradient(to top, rgba(0,0,0,1) 40%, rgba(0,0,0,0));
+    }
+
+    footer {
+      border-top: 1px solid rgba(255,255,255,0.1);
+      background: linear-gradient(180deg, rgba(10,20,40,0) 0%, rgba(0,0,0,.6) 70%);
+      padding: 3rem 1.25rem 4rem;
+      text-align: center;
+      color: var(--text-dim);
+    }
+
+    footer strong { color: var(--accent); }
+
+    /* --- smooth reveal --- */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    html { scroll-behavior: smooth; }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="nav-inner">
+      <div class="brand">
+        <div class="brand-logo">EG</div>
+        <div>
+          <div>ETHNIC GAMES</div>
+          <div style="font-size:.6rem;color:var(--text-dim);">GAMES THAT UNITE THE WORLD</div>
+        </div>
+      </div>
+      <nav>
+        <a href="#about">About</a>
+        <a href="#mission">Mission</a>
+        <a href="#partners">Partnership</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-left reveal">
+      <div class="pre-badge">
+        <div>International EthnoSport Initiative</div>
+      </div>
+
+      <h1 class="hero-title">ETHNIC GAMES — Games that unite nations through sport, culture and peace.</h1>
+      <p class="hero-sub">A new global format where every nation speaks through the language of sport, art, and mutual respect. National identity is a source of strength, not division.</p>
+
+      <div class="hero-stats">
+        <div><span class="num">70+</span> participating countries</div>
+        <div><span class="num">Dozens</span> of ethno-sport disciplines</div>
+        <div><span class="num">Poland</span> first host country</div>
+      </div>
+
+      <div style="margin-top:2rem;">
+        <a href="#mission" class="btn-main">See Project Vision</a>
+      </div>
+    </div>
+
+    <div class="hero-right-card reveal">
+      <div class="hero-visual-bg"></div>
+      <div class="hero-visual-content">
+        <div class="hero-logo">
+          <span>ETHNIC GAMES</span>
+          <span style="color:var(--text-dim);font-size:.8rem;">Games That Unite The World</span>
+          <span style="color:var(--accent);font-size:.8rem;">Project in Development</span>
+          <span style="color:var(--text-dim);font-size:.8rem;">First Games — Republic of Poland</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="about">
+    <div class="section-label reveal">About</div>
+    <h2 class="section-headline reveal">ETHNIC GAMES — A mission of unity, diversity and peace.</h2>
+    <p class="section-text reveal">
+      ETHNIC GAMES is an international movement creating a new global dialogue through sport. 
+      It’s not only competition, but a cultural space where every tradition and ritual becomes 
+      a part of humanity’s shared language. A new era of sport where spirit and respect matter more than politics.
+    </p>
+
+    <div class="about-grid">
+      <div class="about-card reveal">
+        <h3>Strength. Honor. Tradition.</h3>
+        <p>Wrestling, horse racing, martial arts and team games — not as shows, but as heritage of nations.</p>
+        <div class="about-card-visual" style="background-image:url({% static 'img/baatyr.jpeg' %})"></div>
+      </div>
+
+      <div class="about-card reveal">
+        <h3>Discipline and Character.</h3>
+        <p>ETHNIC GAMES presents athletes not just as champions, but as cultural ambassadors of dignity and respect.</p>
+        <div class="about-card-visual" style="background-image:url({% static 'img/fight.jpeg' %});"></div>
+      </div>
+
+      <div class="about-card reveal">
+        <h3>Culture Alive.</h3>
+        <p>Archery, horse traditions, and rituals are not relics — they are living energy of today’s world culture.</p>
+        <div class="about-card-visual" style="background-image:url({% static 'img/jaa.jpeg' %});"></div>
+      </div>
+
+      <div class="about-card reveal">
+        <h3>Global Unity Movement.</h3>
+        <p>Over 70 nations and thousands of ethno-athletes come together — showing the beauty of identity, not its conflict.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="mission">
+    <div class="section-label reveal">Mission & Vision</div>
+    <h2 class="section-headline reveal">“This is not just competition — it’s a Global Movement of Unity.”</h2>
+    <p class="section-text reveal">
+      ETHNIC GAMES shows that sport can be diplomacy. Each performance is a declaration of national pride and peace. 
+      It’s a platform where identity becomes a bridge — not a barrier.
+    </p>
+
+    <div class="hero-stats reveal" style="margin-top:2rem;">
+      <div><span class="num">Respect</span> sport as a universal language</div>
+      <div><span class="num">Culture</span> every tradition is honor</div>
+      <div><span class="num">Peace</span> unity through sportsmanship</div>
+    </div>
+  </section>
+
+  <section id="partners">
+    <div class="section-label reveal">Partnership</div>
+    <h2 class="section-headline reveal">Partnership & Support</h2>
+    <p class="section-text reveal">
+      ETHNIC GAMES is open to collaborate with international organizations, Olympic committees, cultural ministries, and private foundations worldwide.
+    </p>
+
+    <div class="partners-wrapper reveal">
+      <div class="hero-stats">
+        <div>International Organizations</div>
+        <div>Olympic Committees & Federations</div>
+        <div>Tourism / Culture Ministries</div>
+        <div>Private Brands & Foundations</div>
+      </div>
+      <div style="text-align:center;margin-top:1.5rem;">
+        <a href="#contact" class="btn-main">Join the Movement</a>
+      </div>
+    </div>
+  </section>
+
+  <footer id="contact">
+    <p><strong>ETHNIC GAMES International Office</strong><br>
+      Republic of Poland, Wrocław<br>
+      contact@ethnicgames.eu</p>
+    <p>First Games — Republic of Poland<br>
+    <strong>Project in Development</strong></p>
+  </footer>
+
+  <script>
+    // optimized IntersectionObserver (no lag)
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
