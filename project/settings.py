@@ -25,8 +25,8 @@ SECRET_KEY = 'django-insecure-4kjpdeec9i-er9y2122by@!x0@(_x8*5yvzw^x#ewtca404_ne
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
-
+ALLOWED_HOSTS = ["ethnicgames.eu", "www.ethnicgames.eu"]
+# 
 
 # Application definition
 
