@@ -17,13 +17,14 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from django.conf import settings 
-from core.views import index, contact
+from core.views import index, contact, tg_lead
 from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', index, name="main"),
-    path('contacts', contact, name='contact')
+    path('contacts', contact, name='contact'),
+    path("api/tg-lead/", tg_lead, name="tg_lead"),
 ]
 
 

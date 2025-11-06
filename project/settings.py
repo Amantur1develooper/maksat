@@ -29,6 +29,9 @@ ALLOWED_HOSTS = ["ethnicgames.eu",'*', "www.ethnicgames.eu"]
 # 
 
 # Application definition
+import os
+TELEGRAM_BOT_TOKEN = os.getenv("8583338642:AAEn5fyWZM4qyMDaRL6tNxJzPzt_CIf-UHY")
+TELEGRAM_CHAT_ID   = os.getenv("1028830632")
 
 INSTALLED_APPS = [
     'django.contrib.admin',

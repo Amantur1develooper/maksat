@@ -382,7 +382,7 @@
         <div>Private Brands & Foundations</div>
       </div>
       <div style="text-align:center;margin-top:1.5rem;">
-        <a href="#contact" class="btn-main">Join the Movement</a>
+        <a href="#contact" class="btn-main" data-open-modal>Join the Movement</a>
       </div>
     </div>
   </section>
@@ -408,5 +408,189 @@
 
     document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
   </script>
+  <!-- ===== Lead Modal (Join the Movement) ===== -->
+<div id="leadModal" class="eg-modal" aria-hidden="true">
+  <div class="eg-modal__overlay" data-close-modal></div>
+
+  <div class="eg-modal__panel " role="dialog" aria-modal="true" aria-labelledby="egModalTitle">
+    <button class="eg-modal__close" type="button" title="Close" data-close-modal>&times;</button>
+
+    <h3 id="egModalTitle" class="eg-modal__title">Join the Movement</h3>
+    <p class="eg-modal__subtitle">Leave your contacts and we’ll get back to you.</p>
+
+    <form id="leadForm" novalidate>
+      <div class="eg-field">
+        <label for="full_name">Full name *</label>
+        <input id="full_name" name="full_name" type="text" placeholder="Your full name" required>
+      </div>
+
+      <div class="eg-field">
+        <label for="email">Email</label>
+        <input id="email" name="email" type="email" placeholder="you@example.com">
+      </div>
+
+      <div class="eg-field">
+        <label for="phone">Phone</label>
+        <input id="phone" name="phone" type="tel" inputmode="tel" placeholder="+48 600 000 000">
+      </div>
+
+      <div class="eg-field">
+        <label for="message">Message (optional)</label>
+        <textarea id="message" name="message" rows="3" placeholder="Write your message…"></textarea>
+      </div>
+
+      <p class="eg-hint">* Name is required. Provide <u>email or phone</u> (at least one).</p>
+
+      <button id="leadSubmit" type="submit" class="btn-main" style="width:100%">Send</button>
+      <div id="leadResult" class="eg-result" role="status" aria-live="polite"></div>
+    </form>
+  </div>
+</div>
+<style>
+  .eg-modal{position:fixed;inset:0;display:none;z-index:2000;}
+  .eg-modal.open{display:block;}
+
+  .eg-modal__overlay{
+    position:absolute;inset:0;
+    background:rgba(0,0,0,.55);
+    backdrop-filter:blur(3px);
+    z-index:1;
+  }
+
+  .eg-modal__panel{
+    position:absolute;left:50%;
+    transform:translateX(-50%) translateY(-30px);
+    top:-100%;
+    width:min(640px, 92vw);
+    background:rgba(255,255,255,0.04);
+    color:var(--text-light);
+    border:1px solid rgba(255,255,255,.12);
+    border-radius:1rem;
+    box-shadow:0 50px 140px rgba(0,0,0,.8);
+    padding:1.25rem 1.25rem 1.5rem;
+    backdrop-filter:blur(10px);
+    transition: top .38s cubic-bezier(.16,1,.3,1), opacity .25s ease;
+    opacity:0;
+    z-index:2;
+  }
+  .eg-modal.open .eg-modal__panel{ top:5vh; opacity:1; }
+
+  .eg-modal__title{margin:0 0 .25rem;font-size:1.25rem;font-weight:600;letter-spacing:.02em;}
+  .eg-modal__subtitle{margin:.25rem 0 1rem;color:var(--text-dim);}
+  .eg-modal__close{
+    position:absolute;right:.6rem;top:.4rem;width:38px;height:38px;border-radius:10px;
+    border:1px solid rgba(255,255,255,.15);background:rgba(255,255,255,.06);color:#fff;
+    font-size:1.2rem;cursor:pointer;
+  }
+  .eg-modal__close:hover{background:rgba(255,255,255,.1);}
+
+  .eg-field{margin-bottom:1rem;}
+  .eg-field label{display:block;margin:0 0 .4rem;color:var(--accent);font-size:.85rem;letter-spacing:.05em;}
+  .eg-field input,.eg-field textarea{
+    width:100%;border-radius:.6rem;border:1px solid rgba(255,255,255,.15);
+    background:rgba(255,255,255,.05);color:#fff;padding:.8rem;font:inherit;outline:none;
+  }
+  .eg-field input:focus,.eg-field textarea:focus{border-color:var(--accent);}
+  .eg-hint{margin:.2rem 0 1rem;color:var(--text-dim);font-size:.85rem;}
+  .eg-result{margin-top:.8rem;font-size:.9rem;}
+
+  @media (max-width:480px){ .eg-modal__panel{ padding:1rem; } }
+</style>
+
+
+<script>
+  // Open/close modal
+  const modal = document.getElementById('leadModal');
+  const openBtn = document.querySelector('[data-open-modal]');
+  const closeEls = document.querySelectorAll('[data-close-modal]');
+  function openModal(){ modal.classList.add('open'); document.body.style.overflow='hidden'; }
+  function closeModal(){ modal.classList.remove('open'); document.body.style.overflow=''; }
+  if(openBtn){ openBtn.addEventListener('click', e => { e.preventDefault(); openModal(); }); }
+  closeEls.forEach(el => el.addEventListener('click', closeModal));
+  window.addEventListener('keydown', e => { if(e.key==='Escape' && modal.classList.contains('open')) closeModal(); });
+
+  // ---- Lead form ----
+  const leadForm = document.getElementById('leadForm');
+  const leadBtn  = document.getElementById('leadSubmit');
+  const leadRes  = document.getElementById('leadResult');
+
+  function getCookie(name){
+    const m = document.cookie.match('(^|;)\\s*' + name + '\\s*=\\s*([^;]+)');
+    return m ? m.pop() : '';
+  }
+
+  leadForm.addEventListener('submit', async (e) => {
+    e.preventDefault();                // <— ВАЖНО: не перезагружаем страницу
+    leadRes.textContent = '';
+
+    const data = {
+      full_name: leadForm.full_name.value.trim(),
+      email:     leadForm.email.value.trim(),
+      phone:     leadForm.phone.value.trim(),
+      message:   leadForm.message.value.trim(),
+    };
+
+    // простая валидация
+    if (!data.full_name || (!data.email && !data.phone)) {
+      leadRes.style.color = '#ffb3b3';
+      leadRes.textContent = 'Please provide your name and at least one contact (email or phone).';
+      return;
+    }
+
+    // подтверждение (по желанию)
+    // if(!confirm('Send this request to ETHNIC GAMES team?')) return;
+
+    // UX lock
+    leadBtn.disabled = true;
+    leadBtn.textContent = 'Sending…';
+
+    try {
+      const resp = await fetch('/api/tg-lead/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-CSRFToken': getCookie('csrftoken')  // у тебя view csrf_exempt — можно и без этого
+        },
+        body: JSON.stringify(data)
+      });
+
+      let json = {};
+      try { json = await resp.json(); } catch(_) {}
+
+      if (!json.ok) {
+        leadRes.style.color = '#ffb3b3';
+        if (json.error === 'server_misconfigured') {
+          leadRes.textContent = 'Server is not configured yet. Please try later.';
+        } else if (json.error === 'telegram_failed') {
+          leadRes.textContent = 'Cannot reach Telegram. Please try again later.';
+        } else if (json.error === 'validation') {
+          leadRes.textContent = 'Please provide your name and at least one contact.';
+        } else if (json.error === 'telegram_request_exception') {
+          leadRes.textContent = 'Network error while contacting Telegram.';
+        } else {
+          leadRes.textContent = 'Sorry, something went wrong. Please try again.';
+        }
+        return;
+      }
+
+      // success
+      leadRes.style.color = '#9FE8A9';
+      leadRes.textContent = 'Thank you! Your request has been sent.';
+      leadForm.reset();
+      setTimeout(closeModal, 900);
+
+    } catch (err) {
+      leadRes.style.color = '#ffb3b3';
+      leadRes.textContent = 'Network error. Please try again later.';
+      console.error(err);
+    } finally {
+      leadBtn.disabled = false;
+      leadBtn.textContent = 'Send';
+    }
+  });
+</script>
+
+{% comment %} </script> {% endcomment %}
+
 </body>
 </html>
