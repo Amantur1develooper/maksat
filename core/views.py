@@ -13,7 +13,7 @@ ENV_CHAT = os.getenv("TELEGRAM_CHAT_ID")
 # 2) Если их нет — используем локальные dev-значения (НЕ коммить в git!)
 DEV_BOT = "8583338642:AAEn5fyWZM4qyMDaRL6tNxJzPzt_CIf-UHY"   # <— твой тестовый токен
 # DEV_CHAT = "1028830632"  
-DEV_CHAT = "317815640"     
+DEV_CHAT = "317815640"
    
 # 317815640# <— твой user id (или id группы)
 
